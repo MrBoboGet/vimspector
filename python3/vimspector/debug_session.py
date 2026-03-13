@@ -1937,8 +1937,8 @@ class DebugSession( object ):
 
     # FIXME: name is mandatory. Forcefully add it (we should really use the
     # _actual_ name, but that isn't actually remembered at this point)
-    if 'name' not in self._launch_config:
-      self._launch_config[ 'name' ] = 'test'
+    #if 'name' not in self._launch_config:
+    #  self._launch_config[ 'name' ] = 'test'
 
 
   def _Launch( self ):
