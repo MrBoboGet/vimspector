@@ -31,6 +31,7 @@ function! vimspector#internal#state#Reset() abort
     py3 <<EOF
 
 import vim
+import json
 
 def _VimspectorMakeActive( session ):
   global _vimspector_session

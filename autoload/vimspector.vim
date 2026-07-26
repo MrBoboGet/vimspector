@@ -21,14 +21,13 @@ endif
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 " }}}
-
+py3 import json
 function! s:Debug( ... ) abort
   py3 <<EOF
 if _vimspector_session is not None:
   _vimspector_session._logger.debug( *vim.eval( 'a:000' ) )
 EOF
 endfunction
-
 
 " In vim, py3eval( 'None' ) returns v:none
 " In neovim, py3eval( 'None' ) returns v:null
@@ -137,14 +136,14 @@ function! vimspector#LaunchWithConfigurations( configurations ) abort
     return
   endif
   py3 _vimspector_session.Start(
-        \ adhoc_configurations = vim.eval( 'a:configurations' ) )
+        \ adhoc_configurations = json.loads( vim.eval( 'json_encode(a:configurations)' ) )) 
 endfunction
 
 function! vimspector#LaunchWithSettings( settings ) abort
   if !s:Enabled()
     return
   endif
-  py3 _vimspector_session.Start( launch_variables = vim.eval( 'a:settings' ) )
+  py3 _vimspector_session.Start( launch_variables = json.loads(vim.eval( 'json_encode(a:settings)' ) ))
 endfunction
 
 function! vimspector#Reset( ... ) abort
